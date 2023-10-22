@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'dark-midnight-blue': '#070724',
-        gunmetal: '#38384F',
+        'dark-midnight-blue': 'var(--dark-midnight-blue)',
+        gunmetal: 'var(--gunmetal)',
         mystic: '#838391',
         'pacific-blue': '#419EBB',
         'dark-tangerine': '#EDA249',
