@@ -1,9 +1,19 @@
-function App() {
+import Button from '@components/Button';
+
+const App = () => {
   return (
-    <div className="app">
-      <h1>Hello world</h1>
+    <div className="App">
+      <Button buttonNumber={1} onClick={() => console.log('clicked')}>
+        Button
+      </Button>
+      <Button buttonNumber={1} onClick={() => console.log('clicked')}>
+        Button
+      </Button>
+      <Button buttonNumber={1} onClick={() => console.log('clicked')}>
+        Button
+      </Button>
     </div>
   );
-}
+};
 
 export default App;
