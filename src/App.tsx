@@ -1,17 +1,19 @@
-import Button from '@components/Button';
+import { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import type { Planet } from '@/types';
+import planets from '@/data.json';
+
+const defaultPlanet: Planet = {
+  ...planets[0],
+  color: 'var(--pacific-blue)',
+};
 
 const App = () => {
+  const [activePlanet, setActivePlanet] = useState(defaultPlanet);
+
   return (
     <div className="App">
-      <Button buttonNumber={1} onClick={() => console.log('clicked')}>
-        Button
-      </Button>
-      <Button buttonNumber={1} onClick={() => console.log('clicked')}>
-        Button
-      </Button>
-      <Button buttonNumber={1} onClick={() => console.log('clicked')}>
-        Button
-      </Button>
+      <Navbar activePlanet={activePlanet} setActivePlanet={setActivePlanet} />
     </div>
   );
 };
