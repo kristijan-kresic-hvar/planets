@@ -1,10 +1,9 @@
 import lowercase from '@/utils/lowercase';
 
-const getPlanetColor = (planet: string) => {
-  const planetLowercase = lowercase(planet);
+const getPlanetColor = (planetName: string) => {
   let planetColor;
 
-  switch (planetLowercase) {
+  switch (lowercase(planetName)) {
     case 'mercury':
       planetColor = 'var(--pacific-blue)';
       break;
