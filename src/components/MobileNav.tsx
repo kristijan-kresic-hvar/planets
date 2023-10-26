@@ -90,7 +90,7 @@ const MobileNav = ({
         opacity: open ? '1' : '0',
         pointerEvents: open ? 'all' : 'none',
       }}
-      className="overflow-y-auto bg-dark-midnight-blue transition-opacity duration-300 fixed z-50 top-[calc(2rem_+_2rem_+_2.75rem)] left-0 right-0 bottom-0 w-full md:hidden py-[2.75rem] px-[1.5rem]"
+      className="overflow-y-auto overflow-x-hidden bg-dark-midnight-blue transition-opacity duration-300 fixed z-50 top-[calc(2rem_+_2rem_+_2.75rem)] left-0 right-0 bottom-0 w-full md:hidden py-[2.75rem] px-[1.5rem]"
     >
       {planetItems.map((planet, index) => (
         <MobileNavItem
