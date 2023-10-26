@@ -1,7 +1,9 @@
+import { useEffect, useRef } from 'react';
 import type { Planet } from '@/types';
 import lowercase from '@/utils/lowercase';
 import angleRightIcon from '@assets/icon-chevron.svg';
 import getPlanetColor from '@/utils/getPlanetColor';
+import gsap from 'gsap';
 
 type MobileNavProps = {
   open: boolean;
@@ -11,18 +13,47 @@ type MobileNavProps = {
 };
 
 type MobileNavItemProps = {
+  navOpen?: boolean;
   planetName: string;
   onClick: () => void;
   isActive?: boolean;
+  animationDuration?: number;
+  animation?: boolean;
+  animationDelay?: number;
 };
 
 const MobileNavItem = ({
   planetName,
   isActive,
   onClick,
+  navOpen = false,
+  animationDuration = 0.1,
+  animation = true,
+  animationDelay = 0,
 }: MobileNavItemProps) => {
+  const mobileNavItemRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (navOpen && animation) {
+      const initialX = mobileNavItemRef?.current?.getBoundingClientRect().left;
+
+      gsap.fromTo(
+        mobileNavItemRef?.current,
+        {
+          x: initialX && initialX + 100,
+        },
+        {
+          duration: animationDuration,
+          x: 0,
+          ease: 'none',
+          delay: animationDelay,
+        }
+      );
+    }
+  }, [animation, animationDelay, animationDuration, navOpen]);
+
   return (
     <div
+      ref={mobileNavItemRef}
       onClick={onClick}
       style={{
         backgroundColor: isActive ? 'var(--button-hover-background)' : '',
@@ -59,10 +90,12 @@ const MobileNav = ({
         opacity: open ? '1' : '0',
         pointerEvents: open ? 'all' : 'none',
       }}
-      className="overflow-y-auto transition-opacity duration-300 fixed z-50 top-[calc(2rem_+_2rem_+_2.75rem)] left-0 right-0 bottom-0 w-full md:hidden py-[2.75rem] px-[1.5rem]"
+      className="overflow-y-auto bg-dark-midnight-blue transition-opacity duration-300 fixed z-50 top-[calc(2rem_+_2rem_+_2.75rem)] left-0 right-0 bottom-0 w-full md:hidden py-[2.75rem] px-[1.5rem]"
     >
-      {planetItems.map((planet) => (
+      {planetItems.map((planet, index) => (
         <MobileNavItem
+          animationDelay={index * 0.09}
+          navOpen={open}
           key={planet.name}
           planetName={planet.name}
           isActive={lowercase(activePlanetName) === lowercase(planet.name)}
