@@ -12,6 +12,8 @@ const defaultPlanet: Planet = {
   color: getPlanetColor(planets[0].name),
 };
 
+const planetOptions = ['Overview', 'Internal Structure', 'Surface Geology'];
+
 const App = () => {
   const [activePlanet, setActivePlanet] = useState(defaultPlanet);
 
@@ -53,15 +55,16 @@ const App = () => {
               </div>
             </div>
             <div className="self-center hidden md:block">
-              <Button buttonNumber={1} onClick={() => console.log('clicked')}>
-                Overview
-              </Button>
-              <Button buttonNumber={2} onClick={() => console.log('clicked')}>
-                Internal Structure
-              </Button>
-              <Button buttonNumber={3} onClick={() => console.log('clicked')}>
-                Surface Geology
-              </Button>
+              {planetOptions.map((option, index) => (
+                <div key={option} className="mb-[1rem] last:mb-0">
+                  <Button
+                    buttonNumber={index + 1}
+                    onClick={() => console.log('')}
+                  >
+                    {option}
+                  </Button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
