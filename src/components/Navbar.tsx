@@ -30,7 +30,7 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
   return (
     <>
       <nav className="py-[2rem] md:py-0 border-b-[0.0625rem] border-[rgba(255,255,255,0.2)]">
-        <div className="w-full px-[1.5rem] flex flex-row justify-between md:flex-col md:items-center md:justify-center lg:flex-row lg:justify-between">
+        <div className="max-w-[90rem] mx-auto w-full px-[1.5rem] flex flex-row justify-between md:flex-col md:items-center md:justify-center lg:flex-row lg:justify-between">
           <span className="tracking-[-0.06563rem] md:pt-[2rem] lg:pt-0 text-white uppercase font-antonio text-[1.75rem] font-normal">
             The Planets
           </span>
