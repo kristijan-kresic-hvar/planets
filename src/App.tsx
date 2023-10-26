@@ -2,17 +2,16 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import type { Planet } from '@/types';
 import planets from '@/data.json';
-import getPlanetColor from './utils/getPlanetColor';
+import getPlanetColor from '@/utils/getPlanetColor';
 import Button from '@components/Button';
 import sourceIcon from '@assets/icon-source.svg';
-import lowercase from './utils/lowercase';
+import lowercase from '@/utils/lowercase';
+import { planetOptions } from '@/constants';
 
 const defaultPlanet: Planet = {
   ...planets[0],
   color: getPlanetColor(planets[0].name),
 };
-
-const planetOptions = ['Overview', 'Internal Structure', 'Surface Geology'];
 
 const App = () => {
   const [activePlanet, setActivePlanet] = useState(defaultPlanet);
