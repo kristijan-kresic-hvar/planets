@@ -12,6 +12,8 @@ const defaultPlanet: Planet = {
   color: getPlanetColor(planets[0].name),
 };
 
+const planetOptions = ['Overview', 'Internal Structure', 'Surface Geology'];
+
 const App = () => {
   const [activePlanet, setActivePlanet] = useState(defaultPlanet);
 
@@ -34,11 +36,11 @@ const App = () => {
               <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[5rem] text-white font-antonio font-bold uppercase">
                 {activePlanet.name}
               </h1>
-              <p className="max-w-[21.875rem] mx-auto text-white text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-leagueSpartan leading-[1.5625rem] font-normal">
+              <p className="max-w-[21.875rem] mx-auto text-white text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-spartan leading-[1.5625rem] font-normal">
                 {activePlanet.overview.content}
               </p>
               <div className="h-max mb-[2.44rem] justify-center md:justify-start flex items-center gap-[0.5rem]">
-                <small className="text-white opacity-50 font-leagueSpartan text-[0.75rem] lg:text-[0.875rem]">
+                <small className="text-white opacity-50 font-spartan text-[0.75rem] lg:text-[0.875rem]">
                   Source {''} :
                   <a
                     className="font-bold underline capitalize"
@@ -53,15 +55,16 @@ const App = () => {
               </div>
             </div>
             <div className="self-center hidden md:block">
-              <Button buttonNumber={1} onClick={() => console.log('clicked')}>
-                Overview
-              </Button>
-              <Button buttonNumber={2} onClick={() => console.log('clicked')}>
-                Internal Structure
-              </Button>
-              <Button buttonNumber={3} onClick={() => console.log('clicked')}>
-                Surface Geology
-              </Button>
+              {planetOptions.map((option, index) => (
+                <div key={option} className="mb-[1rem] last:mb-0">
+                  <Button
+                    buttonNumber={index + 1}
+                    onClick={() => console.log('')}
+                  >
+                    {option}
+                  </Button>
+                </div>
+              ))}
             </div>
           </div>
         </div>

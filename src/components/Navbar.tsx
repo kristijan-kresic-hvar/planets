@@ -48,7 +48,7 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
                   }
                   onMouseLeave={() => setHighlightedPlanet(null)}
                   onClick={() => handleNavItemClick(planet)}
-                  className={`relative md:pb-[2rem] transition-color duration-300 lg:py-[2rem] uppercase font-leagueSpartan text-[0.6875rem] leading-[1.5625rem] tracking-[0.0625rem] cursor-pointer ${
+                  className={`relative md:pb-[2rem] transition-color duration-300 lg:py-[2rem] uppercase font-spartan text-[0.6875rem] leading-[1.5625rem] tracking-[0.0625rem] cursor-pointer ${
                     isPlanetActive
                       ? 'text-white'
                       : 'text-[rgba(255,255,255,0.75)]'

@@ -34,7 +34,7 @@ const MobileNavItem = ({
           style={{ backgroundColor: getPlanetColor(planetName) }}
           className="w-[1.25rem] h-[1.25rem] rounded-full"
         />
-        <span className="text-[0.9375rem] font-bold leading-[1.5625rem] text-white font-leagueSpartan uppercase">
+        <span className="text-[0.9375rem] font-bold leading-[1.5625rem] text-white font-spartan uppercase">
           {planetName}
         </span>
       </div>
