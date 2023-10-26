@@ -18,7 +18,7 @@ export default {
       },
       fontFamily: {
         antonio: 'Antonio, sans-serif',
-        leagueSpartan: 'League Spartan, sans-serif',
+        spartan: 'Spartan, sans-serif',
       },
     },
   },

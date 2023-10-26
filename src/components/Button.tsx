@@ -35,7 +35,7 @@ const Button = memo(
         style={buttonStyle}
         type={type}
         disabled={disabled}
-        className="flex justify-start items-center max-w-[21.875rem] w-full py-[0.75rem] px-[1.75rem] font-bold leading-[1.6rem] tracking-[0.2rem] uppercase text-[0.5625rem] md:text-[0.75rem] font-leagueSpartan text-white border border-[rgba(255,255,255,0.2)] hover:${buttonHoverBackgroundColor}"
+        className="flex justify-start items-center max-w-[21.875rem] w-full py-[0.75rem] px-[1.75rem] font-bold leading-[1.6rem] tracking-[0.2rem] uppercase text-[0.5625rem] md:text-[0.75rem] font-spartan text-white border border-[rgba(255,255,255,0.2)] hover:${buttonHoverBackgroundColor}"
         onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

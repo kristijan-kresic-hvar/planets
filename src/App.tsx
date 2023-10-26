@@ -34,11 +34,11 @@ const App = () => {
               <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[5rem] text-white font-antonio font-bold uppercase">
                 {activePlanet.name}
               </h1>
-              <p className="max-w-[21.875rem] mx-auto text-white text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-leagueSpartan leading-[1.5625rem] font-normal">
+              <p className="max-w-[21.875rem] mx-auto text-white text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-spartan leading-[1.5625rem] font-normal">
                 {activePlanet.overview.content}
               </p>
               <div className="h-max mb-[2.44rem] justify-center md:justify-start flex items-center gap-[0.5rem]">
-                <small className="text-white opacity-50 font-leagueSpartan text-[0.75rem] lg:text-[0.875rem]">
+                <small className="text-white opacity-50 font-spartan text-[0.75rem] lg:text-[0.875rem]">
                   Source {''} :
                   <a
                     className="font-bold underline capitalize"

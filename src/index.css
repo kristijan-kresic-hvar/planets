@@ -17,6 +17,20 @@
   --button-hover-background: #d8d8d822;
 }
 
+@font-face {
+  font-family: 'Spartan';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/spartan/Spartan-Regular.ttf') .format('truetype');
+}
+
+@font-face {
+  font-family: 'Spartan';
+  font-style: bold;
+  font-weight: 700;
+  src: url('/assets/fonts/spartan/Spartan-Bold.ttf') .format('truetype');
+}
+
 html,
 body {
   width: 100%;
