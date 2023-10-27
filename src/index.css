@@ -21,14 +21,14 @@
   font-family: 'Spartan';
   font-style: normal;
   font-weight: 400;
-  src: url('/assets/fonts/spartan/Spartan-Regular.ttf') .format('truetype');
+  src: url('/assets/fonts/spartan/Spartan-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Spartan';
   font-style: bold;
   font-weight: 700;
-  src: url('/assets/fonts/spartan/Spartan-Bold.ttf') .format('truetype');
+  src: url('/assets/fonts/spartan/Spartan-Bold.ttf') format('truetype');
 }
 
 html,
@@ -42,6 +42,7 @@ body {
     url('/assets/background-stars.svg') no-repeat center center fixed,
     var(--dark-midnight-blue);
   background-size: cover;
+  overflow-x: hidden;
 }
 
 .mercury {

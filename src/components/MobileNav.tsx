@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Planet } from '@/types';
 import lowercase from '@/utils/lowercase';
 import angleRightIcon from '@assets/icon-chevron.svg';
@@ -31,25 +31,36 @@ const MobileNavItem = ({
   animation = true,
   animationDelay = 0,
 }: MobileNavItemProps) => {
+  const [isAnimating, setIsAnimating] = useState(false);
   const mobileNavItemRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    if (navOpen && animation) {
-      const initialX = mobileNavItemRef?.current?.getBoundingClientRect().left;
+    let customAnimation: gsap.core.Tween | null = null;
 
-      gsap.fromTo(
+    if (navOpen && animation && !isAnimating) {
+      customAnimation = gsap.fromTo(
         mobileNavItemRef?.current,
         {
-          x: initialX && initialX + 100,
+          x: 100,
         },
         {
           duration: animationDuration,
           x: 0,
           ease: 'none',
           delay: animationDelay,
+          onComplete: () => {
+            setIsAnimating(false);
+          },
         }
       );
     }
-  }, [animation, animationDelay, animationDuration, navOpen]);
+
+    return () => {
+      if (customAnimation) {
+        customAnimation.kill();
+      }
+      setIsAnimating(false);
+    };
+  }, [animation, animationDelay, animationDuration, isAnimating, navOpen]);
 
   return (
     <div
