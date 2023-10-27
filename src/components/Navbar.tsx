@@ -72,7 +72,9 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
           <img
             title={isMenuOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="md:hidden cursor-pointer opacity-[0.2487] object-contain w-[1.5rem]"
+            className={`md:hidden cursor-pointer ${
+              isMenuOpen ? 'opacity-[0.2487]' : 'opacity-1'
+            } object-contain w-[1.5rem]`}
             src={hamburgerIcon}
             alt="hamburger menu handler"
           />
