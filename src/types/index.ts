@@ -5,6 +5,10 @@ export type Planet = {
     content: string;
     source: string;
   };
+  structure: {
+    content: string;
+    source: string;
+  };
   geology: {
     content: string;
     source: string;
@@ -17,5 +21,16 @@ export type Planet = {
     planet: string;
     internal: string;
     geology: string;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+};
+
+export type PlanetOption = {
+  label: string;
+  value: string;
 };

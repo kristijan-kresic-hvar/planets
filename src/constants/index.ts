@@ -1,5 +1,14 @@
 export const planetOptions = [
-  'Overview',
-  'Internal Structure',
-  'Surface Geology',
+  {
+    label: 'Overview',
+    value: 'overview',
+  },
+  {
+    label: 'Internal Structure',
+    value: 'structure',
+  },
+  {
+    label: 'Surface Geology',
+    value: 'geology',
+  },
 ];

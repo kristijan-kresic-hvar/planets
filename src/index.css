@@ -97,7 +97,7 @@ body {
   }
 }
 
-/* .planet-image {
+.planet-image {
   animation: rotate 60s linear infinite;
   transform-origin: center center;
-} */
+}

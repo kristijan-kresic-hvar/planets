@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import type { Planet } from '@/types';
 import planets from '@/data.json';
 import getPlanetColor from '@/utils/getPlanetColor';
-import Button from '@components/Button';
 import sourceIcon from '@assets/icon-source.svg';
 import lowercase from '@/utils/lowercase';
 import { planetOptions } from '@/constants';
+import PlanetOptions from './components/PlanetOptions';
+import getActivePlanetImageString from './utils/getActivePlanetImageString';
 
 const defaultPlanet: Planet = {
   ...planets[0],
@@ -15,18 +16,27 @@ const defaultPlanet: Planet = {
 
 const App = () => {
   const [activePlanet, setActivePlanet] = useState(defaultPlanet);
+  const [activeOption, setActiveOption] = useState(planetOptions[0]);
+
+  useEffect(() => {
+    setActiveOption(planetOptions[0]);
+  }, [activePlanet]);
 
   return (
     <div className="App">
       <Navbar activePlanet={activePlanet} setActivePlanet={setActivePlanet} />
       <main className="w-[85%] max-w-[90rem] mx-auto">
         <div className="mt-[2.44rem] md:mt-[3.38rem] lg:mt-[7.88rem] mb-[5.44rem] lg:grid lg:grid-cols-2 lg:gap-[9.56rem] place-items-center">
-          <div className="flex justify-center shrink-1 min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto lg:min-w-[27rem]">
+          <div className="flex items-center justify-center shrink-1 min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto lg:min-w-[27rem]">
             <img
               className={`block object-contain h-auto max-w-full mx-auto lg:mx-0 planet-image ${lowercase(
                 activePlanet.name
               )}`}
-              src={activePlanet.images.planet}
+              src={
+                activePlanet.images[
+                  getActivePlanetImageString(activeOption.value)
+                ]
+              }
               alt="planet graphic handler"
             />
           </div>
@@ -36,14 +46,14 @@ const App = () => {
                 {activePlanet.name}
               </h1>
               <p className="max-w-[21.875rem] mx-auto text-white text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-spartan leading-[1.5625rem] font-normal">
-                {activePlanet.overview.content}
+                {activePlanet[activeOption.value].content}
               </p>
               <div className="h-max mb-[2.44rem] justify-center md:justify-start flex items-center gap-[0.5rem]">
                 <small className="text-white opacity-50 font-spartan text-[0.75rem] lg:text-[0.875rem]">
                   Source {''} :
                   <a
                     className="font-bold underline capitalize"
-                    href={activePlanet.overview.source}
+                    href={activePlanet[activeOption.value].source}
                     rel="noreferrer"
                     target="_blank"
                   >
@@ -53,18 +63,12 @@ const App = () => {
                 <img src={sourceIcon} alt="open in new tab handler" />
               </div>
             </div>
-            <div className="self-center hidden md:block">
-              {planetOptions.map((option, index) => (
-                <div key={option} className="mb-[1rem] last:mb-0">
-                  <Button
-                    buttonNumber={index + 1}
-                    onClick={() => console.log('')}
-                  >
-                    {option}
-                  </Button>
-                </div>
-              ))}
-            </div>
+            <PlanetOptions
+              activeOption={activeOption}
+              activeBackground={activePlanet.color ?? ''}
+              options={planetOptions}
+              setActiveOption={setActiveOption}
+            />
           </div>
         </div>
       </main>
