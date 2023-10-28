@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import type { Planet } from '@/types';
 import planets from '@/data.json';
@@ -8,6 +8,7 @@ import lowercase from '@/utils/lowercase';
 import { planetOptions } from '@/constants';
 import PlanetOptions from './components/PlanetOptions';
 import getActivePlanetImageString from './utils/getActivePlanetImageString';
+import gsap from 'gsap';
 
 const defaultPlanet: Planet = {
   ...planets[0],
@@ -18,16 +19,30 @@ const App = () => {
   const [activePlanet, setActivePlanet] = useState(defaultPlanet);
   const [activeOption, setActiveOption] = useState(planetOptions[0]);
 
+  const geologyImageRef = useRef<HTMLDivElement | null>(null);
+
+  const showGeologyImage = activeOption.value === 'geology';
+
   useEffect(() => {
     setActiveOption(planetOptions[0]);
   }, [activePlanet]);
+
+  useEffect(() => {
+    if (showGeologyImage) {
+      gsap.to(geologyImageRef.current, {
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power1.inOut',
+      });
+    }
+  }, [showGeologyImage]);
 
   return (
     <div className="App">
       <Navbar activePlanet={activePlanet} setActivePlanet={setActivePlanet} />
       <main className="w-[85%] max-w-[90rem] mx-auto">
         <div className="mt-[2.44rem] md:mt-[3.38rem] lg:mt-[7.88rem] mb-[5.44rem] lg:grid lg:grid-cols-2 lg:gap-[9.56rem] place-items-center">
-          <div className="flex items-center justify-center shrink-1 min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto lg:min-w-[27rem]">
+          <div className="relative flex items-center justify-center shrink-1 min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto lg:min-w-[27rem]">
             <img
               className={`block object-contain h-auto max-w-full mx-auto lg:mx-0 planet-image ${lowercase(
                 activePlanet.name
@@ -37,8 +52,21 @@ const App = () => {
                   getActivePlanetImageString(activeOption.value)
                 ]
               }
-              alt="planet graphic handler"
+              alt="planet graphic"
             />
+
+            {showGeologyImage && (
+              <div
+                ref={geologyImageRef}
+                className="absolute top-[63%] opacity-0"
+              >
+                <img
+                  className="object-contain h-auto max-w-[4.2rem] md:max-w-[6.8rem] lg:max-w-[10.1875rem]"
+                  src={activePlanet.images.geology}
+                  alt="planet geology"
+                />
+              </div>
+            )}
           </div>
           <div className="flex flex-col md:flex-row self-start justify-between lg:shrink-0 lg:block mt-[2.31rem]">
             <div className="text-center md:text-left">
