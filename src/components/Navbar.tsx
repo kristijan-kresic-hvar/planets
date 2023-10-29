@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import planets from '@/data.json';
 import lowercase from '@/utils/lowercase';
 import type { Planet } from '@/types';
@@ -27,6 +27,14 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
     });
   };
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('disable-scroll-y');
+    } else {
+      document.body.classList.remove('disable-scroll-y');
+    }
+  }, [isMenuOpen]);
+
   return (
     <>
       <nav className="py-[2rem] md:py-0 border-b-[0.0625rem] border-[rgba(255,255,255,0.2)]">
@@ -34,7 +42,7 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
           <span className="tracking-[-0.06563rem] md:pt-[2rem] lg:pt-0 text-white uppercase font-antonio text-[1.75rem] font-normal">
             The Planets
           </span>
-          <ul className="h-full hidden md:inline-flex md:mt-[2.44rem] lg:mt-0 items-center justify-center gap-[2.0625rem]">
+          <ul className="h-full md:max-w-[90rem] hidden md:inline-flex md:mt-[2.44rem] lg:mt-0 items-center justify-center gap-[2.0625rem]">
             {planets.map((planet) => {
               const isPlanetActive =
                 lowercase(activePlanet.name) === lowercase(planet.name);
