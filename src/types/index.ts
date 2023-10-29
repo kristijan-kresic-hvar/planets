@@ -34,3 +34,10 @@ export type PlanetOption = {
   label: string;
   value: string;
 };
+
+export type PlanetInformation = {
+  rotation: string;
+  revolution: string;
+  radius: string;
+  temperature: string;
+};

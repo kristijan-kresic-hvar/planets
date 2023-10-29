@@ -77,6 +77,14 @@ body {
   @apply w-[10.8125rem] md:w-[17.8125rem] lg:w-auto;
 }
 
+.disable-scroll-y {
+  @apply overflow-y-hidden;
+}
+
+.content-container {
+  @apply lg:max-w-[85%] mx-auto;
+}
+
 @keyframes breathe {
   0% {
     transform: scale(1);

@@ -23,7 +23,10 @@ const PlanetOptions = ({
   return (
     <div className="self-center hidden md:block">
       {options?.map((option, index) => (
-        <div key={option.value} className="mb-[1rem] last:mb-0">
+        <div
+          key={option.value}
+          className="mb-[1rem] w-full lg:max-w-full max-w-[21.875rem] last:mb-0 ml-auto"
+        >
           <Button
             isActive={lowercase(option.label) === lowercase(activeOption.label)}
             activeBackground={activeBackground}
