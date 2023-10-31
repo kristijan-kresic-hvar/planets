@@ -11,7 +11,7 @@ type InformationBoxProps = {
 
 const InformationBox = ({ title, value }: InformationBoxProps) => {
   return (
-    <div className="w-full flex flex-row md:flex-col pt-0 md:pt-[1rem] lg:pt-[1.25rem] px-[1.44rem] items-center md:items-start justify-between border border-[rgba(255,255,255,0.2)]">
+    <div className="w-full flex flex-row md:flex-col pt-0 md:pt-[1rem] lg:pt-[1.25rem] px-[1.5rem] md:px-[0.94rem] lg:px-[1.44rem] items-center md:items-start justify-between border border-[rgba(255,255,255,0.2)]">
       <h3 className="text-opacity-50 mt-[0.44rem] md:mt-0 font-bold text-white uppercase font-spartan text-[0.5rem] lg:text-[0.6875rem] mb-[0.25rem] whitespace-nowrap">
         {title}
       </h3>
