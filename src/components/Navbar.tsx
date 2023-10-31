@@ -27,8 +27,13 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
     });
   };
 
+  const handleHamburgerMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   useEffect(() => {
     if (isMenuOpen) {
+      window.scrollTo(0, 0);
       document.body.classList.add('disable-scroll-y');
     } else {
       document.body.classList.remove('disable-scroll-y');
@@ -79,7 +84,7 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
           </ul>
           <img
             title={isMenuOpen ? 'Close menu' : 'Open menu'}
-            onClick={() => setIsMenuOpen((prev) => !prev)}
+            onClick={handleHamburgerMenu}
             className={`md:hidden cursor-pointer ${
               isMenuOpen ? 'opacity-[0.2487]' : 'opacity-1'
             } object-contain w-[1.5rem]`}
