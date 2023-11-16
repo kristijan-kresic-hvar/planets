@@ -10,6 +10,7 @@ import PlanetOptions from './components/PlanetOptions';
 import getActivePlanetImageString from './utils/getActivePlanetImageString';
 import gsap from 'gsap';
 import PlanetInformation from '@components/PlanetInformation.tsx';
+import MobileOptions from '@components/MobileOptions.tsx';
 
 const defaultPlanet: Planet = {
   ...planets[0],
@@ -43,11 +44,19 @@ const App = () => {
   return (
     <div className="App">
       <Navbar activePlanet={activePlanet} setActivePlanet={setActivePlanet} />
-      <main className="w-full max-w-[90rem] mx-auto px-[2.5rem]">
+      <div className="block md:hidden w-full max-w-[90rem] mx-auto px-[1.5rem] border-b-[0.0625rem] border-[rgba(255,255,255,0.2)]">
+        <MobileOptions
+          activePlanetColor={activePlanet.color ?? ''}
+          activeOption={activeOption}
+          options={planetOptions}
+          setActiveOption={setActiveOption}
+        />
+      </div>
+      <main className="w-full max-w-[90rem] mx-auto px-[1.5rem] md:px-[2.5rem]">
         <div className="content-container">
           <div className="mt-[2.44rem] md:mt-[3.38rem] lg:mt-[7.88rem] lg:grid lg:grid-cols-2 lg:gap-[9.56rem] mx-auto">
             <div className="flex items-center justify-center shrink-1 min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto lg:min-w-[27rem]">
-              <div className="relative shrink-1">
+              <div className="relative shrink-1 select-none pointer-events-none">
                 <img
                   className={`block object-contain h-auto max-w-full mx-auto lg:mx-0 planet-image ${lowercase(
                     activePlanet.name

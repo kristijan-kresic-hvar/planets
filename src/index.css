@@ -3,110 +3,109 @@
 @tailwind utilities;
 
 :root {
-  --dark-midnight-blue: #070724;
-  --gunmetal: #38384f;
-  --mystic: #838391;
-  --pacific-blue: #419ebb;
-  --dark-tangerine: #eda249;
-  --deep-purple: #6f2ed6;
-  --cinnabar: #d14c32;
-  --alizarin-crimson: #d83a34;
-  --dark-coral: #cd5120;
-  --caribbean-green: #1ec2a4;
-  --sapphire-blue: #2d68f0;
-  --button-hover-background: #d8d8d822;
+    --dark-midnight-blue: #070724;
+    --gunmetal: #38384f;
+    --mystic: #838391;
+    --pacific-blue: #419ebb;
+    --dark-tangerine: #eda249;
+    --deep-purple: #6f2ed6;
+    --cinnabar: #d14c32;
+    --alizarin-crimson: #d83a34;
+    --dark-coral: #cd5120;
+    --caribbean-green: #1ec2a4;
+    --sapphire-blue: #2d68f0;
+    --button-hover-background: #d8d8d822;
 }
 
 @font-face {
-  font-family: 'Spartan';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/assets/fonts/spartan/Spartan-Regular.ttf') format('truetype');
+    font-family: 'Spartan';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/fonts/spartan/Spartan-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Spartan';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/assets/fonts/spartan/Spartan-Bold.ttf') format('truetype');
+    font-family: 'Spartan';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/assets/fonts/spartan/Spartan-Bold.ttf') format('truetype');
 }
 
 html,
 body {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 body {
-  background:
-    url('/assets/background-stars.svg') no-repeat center center fixed,
+    background: url('/assets/background-stars.svg') no-repeat center center fixed,
     var(--dark-midnight-blue);
-  background-size: cover;
-  overflow-x: hidden;
+    background-size: cover;
+    overflow-x: hidden;
 }
 
 .mercury {
-  @apply w-[6.9375rem] md:w-[11.5rem] lg:w-auto;
+    @apply w-[6.9375rem] md:w-[11.5rem] lg:w-auto;
 }
 
 .venus {
-  @apply w-[9.625rem] md:w-[15.8125rem] lg:w-auto;
+    @apply w-[9.625rem] md:w-[15.8125rem] lg:w-auto;
 }
 
 .earth {
-  @apply w-[10.8125rem] md:w-[17.8125rem] lg:w-auto;
+    @apply w-[10.8125rem] md:w-[17.8125rem] lg:w-auto;
 }
 
 .mars {
-  @apply w-[8.0625rem] md:w-[13.3125rem] lg:w-auto;
+    @apply w-[8.0625rem] md:w-[13.3125rem] lg:w-auto;
 }
 
 .jupiter {
-  @apply w-[14rem] md:w-[23.0625rem] lg:w-auto;
+    @apply w-[14rem] md:w-[23.0625rem] lg:w-auto;
 }
 
 .saturn {
-  @apply w-[16rem] md:w-[26.375rem] lg:w-auto;
+    @apply w-[16rem] md:w-[26.375rem] lg:w-auto;
 }
 
 .uranus {
-  @apply w-[11rem] md:w-[18.125rem] lg:w-auto;
+    @apply w-[11rem] md:w-[18.125rem] lg:w-auto;
 }
 
 .neptune {
-  @apply w-[10.8125rem] md:w-[17.8125rem] lg:w-auto;
+    @apply w-[10.8125rem] md:w-[17.8125rem] lg:w-auto;
 }
 
 .disable-scroll-y {
-  @apply overflow-y-hidden;
+    @apply overflow-y-hidden;
 }
 
 .content-container {
-  @apply lg:max-w-[85%] mx-auto;
+    @apply lg:max-w-[85%] mx-auto;
 }
 
 @keyframes breathe {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .planet-image {
-  animation: rotate 60s linear infinite;
-  transform-origin: center center;
+    animation: rotate 60s linear infinite;
+    transform-origin: center center;
 }
