@@ -52,11 +52,11 @@ const App = () => {
           setActiveOption={setActiveOption}
         />
       </div>
-      <main className="w-full max-w-[90rem] mx-auto px-[1.5rem] md:px-[2.5rem]">
+      <main className="w-full max-w-[90rem] mx-auto px-[1.5rem] md:px-[2.5rem] lg:px-0">
         <div className="content-container">
-          <div className="mt-[2.44rem] md:mt-[3.38rem] lg:mt-[7.88rem] lg:grid lg:grid-cols-2 lg:gap-[9.56rem] mx-auto">
-            <div className="flex items-center justify-center shrink-1 min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto lg:min-w-[27rem]">
-              <div className="relative shrink-1 select-none pointer-events-none">
+          <div className="mt-[2.44rem] md:mt-[3.38rem] lg:mt-[7.88rem] lg:grid lg:grid-cols-[2fr,1fr] lg:gap-[9.56rem] mx-auto place-items-center">
+            <div className="w-full flex items-center justify-center min-h-[16rem] md:min-h-[26.375rem] lg:min-h-auto">
+              <div className="relative select-none pointer-events-none">
                 <img
                   className={`block object-contain h-auto max-w-full mx-auto lg:mx-0 planet-image ${lowercase(
                     activePlanet.name
@@ -66,12 +66,12 @@ const App = () => {
                       getActivePlanetImageString(activeOption.value)
                     ]
                   }
-                  alt="planet graphic"
+                  alt="graphic representation of a planet"
                 />
                 {showGeologyImage && (
                   <div
                     ref={geologyImageRef}
-                    className="w-auto absolute left-1/2 -translate-x-1/2 top-[63%] opacity-0"
+                    className="absolute left-1/2 -translate-x-1/2 top-[63%] opacity-0"
                   >
                     <img
                       className="object-contain h-auto max-w-[4.2rem] md:max-w-[6.8rem] lg:max-w-[10.1875rem]"
@@ -82,8 +82,8 @@ const App = () => {
                 )}
               </div>
             </div>
-            <div className="flex ml-auto flex-col md:flex-row self-start shrink-0 md:gap-[4.31rem] justify-between lg:shrink-0 lg:block mt-[2.31rem]">
-              <div className="text-center md:text-left flex-1 grow">
+            <div className="w-full flex flex-col md:flex-row self-start md:gap-[4.31rem] justify-between lg:block mt-[2.31rem]">
+              <div className="text-center md:text-left">
                 <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[5rem] text-white font-antonio font-bold uppercase">
                   {activePlanet.name}
                 </h1>

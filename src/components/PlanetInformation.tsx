@@ -26,17 +26,17 @@ const PlanetInformation = ({
   data: { rotation, revolution, radius, temperature },
 }: PlanetInformationProps) => {
   return (
-    <div className="w-full flex flex-col md:flex-row gap-0 gap-y-[0.5rem] lg:gap-[1.88rem] md:gap-[0.69rem] justify-between flex-wrap">
-      <div className="flex-1 w-full md:max-w-[15.9375rem]">
+    <div className="w-full flex flex-col md:flex-row gap-0 gap-y-[0.5rem] lg:gap-[1.88rem] md:gap-[0.69rem] justify-between">
+      <div className="flex-1 md:basis-[16rem]">
         <InformationBox title="rotation time" value={rotation} />
       </div>
-      <div className="flex-1 md:max-w-[15.9375rem]">
+      <div className="flex-1 md:basis-[16rem]">
         <InformationBox title="revolution time" value={revolution} />
       </div>
-      <div className="flex-1 md:max-w-[15.9375rem]">
+      <div className="flex-1 md:basis-[16rem]">
         <InformationBox title="radius" value={radius} />
       </div>
-      <div className="flex-1 md:max-w-[15.9375rem]">
+      <div className="flex-1 md:basis-[16rem]">
         <InformationBox title="average temp." value={temperature} />
       </div>
     </div>
