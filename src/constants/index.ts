@@ -1,3 +1,5 @@
+import { OptionLabels } from '@/types';
+
 export const planetOptions = [
   {
     label: 'Overview',
@@ -12,3 +14,8 @@ export const planetOptions = [
     value: 'geology',
   },
 ];
+
+export const optionLabels: OptionLabels = {
+  structure: 'Structure',
+  geology: 'Surface',
+};

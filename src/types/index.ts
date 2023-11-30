@@ -41,3 +41,7 @@ export type PlanetInformation = {
   radius: string;
   temperature: string;
 };
+
+export type OptionLabels = {
+  [key: string]: string;
+};
