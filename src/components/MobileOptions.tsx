@@ -1,18 +1,13 @@
-import {
-  useRef,
-  useEffect,
-  useCallback,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { useRef, useEffect, useCallback } from 'react';
+import useOnResize from '@/hooks/useOnResize.ts';
 import getOptionLabel from '@utils/getOptionLabel.ts';
 import type { PlanetOption } from '@/types';
 
-type MobileTabsProps = {
+type MobileOptionsProps = {
   activePlanetColor: string;
   activeOption: PlanetOption;
   options: PlanetOption[];
-  setActiveOption: Dispatch<SetStateAction<PlanetOption>>;
+  setActiveOption: (option: PlanetOption) => void;
 };
 
 const MobileOptions = ({
@@ -20,13 +15,10 @@ const MobileOptions = ({
   options,
   setActiveOption,
   activeOption,
-}: MobileTabsProps) => {
+}: MobileOptionsProps) => {
   const isResizing = useRef(false);
   const activeOptionRef = useRef<HTMLLIElement | null>(null);
   const indicatorRef = useRef<HTMLLIElement | null>(null);
-  const indicatorAnimationTimeoutRef = useRef<number | NodeJS.Timeout | null>(
-    null
-  );
 
   const updateIndicatorPosition = useCallback(() => {
     if (activeOptionRef.current && indicatorRef.current) {
@@ -44,27 +36,16 @@ const MobileOptions = ({
   }, [activePlanetColor]);
 
   const handleResize = useCallback(() => {
-    if (indicatorAnimationTimeoutRef.current) {
-      clearTimeout(indicatorAnimationTimeoutRef.current);
-    }
     isResizing.current = true;
     updateIndicatorPosition();
-    indicatorAnimationTimeoutRef.current = requestAnimationFrame(() => {
-      isResizing.current = false;
-    });
+    isResizing.current = false;
   }, [updateIndicatorPosition]);
 
   useEffect(() => {
     updateIndicatorPosition();
   }, [activeOption, activePlanetColor, isResizing, updateIndicatorPosition]);
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleResize]);
+  useOnResize(handleResize);
 
   return (
     <ul className="relative w-full flex justify-between gap-[2.75rem] overflow-x-auto no-scrollbar">
