@@ -1,6 +1,5 @@
 export type Planet = {
   name: string;
-  color?: string;
   overview: {
     content: string;
     source: string;
@@ -21,10 +20,7 @@ export type Planet = {
     planet: string;
     internal: string;
     geology: string;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any;
-  };
+  } & Record<string, string>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
@@ -44,4 +40,10 @@ export type PlanetInformation = {
 
 export type OptionLabels = {
   [key: string]: string;
+};
+
+export type AnimationProps = {
+  animation?: boolean;
+  animationDuration?: number;
+  animationDelay?: number;
 };
