@@ -3,7 +3,7 @@ import getActivePlanetImageString from '@utils/getActivePlanetImageString.ts';
 import sourceIcon from '@assets/icon-source.svg';
 import PlanetOptions from '@components/PlanetOptions.tsx';
 import { planetOptions } from '@/constants';
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef, forwardRef, ForwardedRef } from 'react';
 import { Planet, PlanetOption } from '@/types';
 import { fadeIn } from '@/animations';
 import PlanetImage from '@components/PlanetImage.tsx';
@@ -14,6 +14,41 @@ type PlanetContentProps = {
   setActiveOption: (option: PlanetOption) => void;
 };
 
+const WikiSource = ({ source }: { source: string }) => {
+  return (
+    <div className="h-max lg:mb-[2.44rem] justify-center md:justify-start flex items-center gap-[0.5rem]">
+      <small className="text-white opacity-50 font-spartan text-[0.75rem] lg:text-[0.875rem]">
+        Source {''} :
+        <a
+          className="font-bold underline capitalize"
+          href={source}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {''} Wikipedia
+        </a>
+      </small>
+      <img src={sourceIcon} alt="open in new tab handler" />
+    </div>
+  );
+};
+
+const PlanetInfoText = forwardRef(
+  (
+    { infoText }: { infoText: string },
+    ref: ForwardedRef<HTMLParagraphElement>
+  ) => {
+    return (
+      <p
+        ref={ref}
+        className="max-w-[21.875rem] mx-auto md:mx-0 text-white lg:min-h-[13rem] text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-spartan leading-[1.5625rem] font-normal"
+      >
+        {infoText}
+      </p>
+    );
+  }
+);
+
 const PlanetContent = ({
   activePlanet,
   activeOption,
@@ -23,7 +58,7 @@ const PlanetContent = ({
 
   const showGeologyImage = activeOption.value === 'geology';
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     fadeIn({
       element: planetInfoTextRef,
       duration: 0.5,
@@ -47,26 +82,11 @@ const PlanetContent = ({
           <h1 className="text-[2.5rem] md:text-[3rem] lg:text-[5rem] text-white font-antonio font-bold uppercase">
             {activePlanet.name}
           </h1>
-          <p
+          <PlanetInfoText
             ref={planetInfoTextRef}
-            className="max-w-[21.875rem] mx-auto md:mx-0 text-white lg:min-h-[13rem] text-[0.6875rem] lg:text-[0.875rem] py-[1.5rem] font-spartan leading-[1.5625rem] font-normal"
-          >
-            {activePlanet[activeOption.value].content}
-          </p>
-          <div className="h-max lg:mb-[2.44rem] justify-center md:justify-start flex items-center gap-[0.5rem]">
-            <small className="text-white opacity-50 font-spartan text-[0.75rem] lg:text-[0.875rem]">
-              Source {''} :
-              <a
-                className="font-bold underline capitalize"
-                href={activePlanet[activeOption.value].source}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {''} Wikipedia
-              </a>
-            </small>
-            <img src={sourceIcon} alt="open in new tab handler" />
-          </div>
+            infoText={activePlanet[activeOption.value].content}
+          />
+          <WikiSource source={activePlanet[activeOption.value].source} />
         </div>
         <div className="shrink-1 self-center flex-1">
           <PlanetOptions
