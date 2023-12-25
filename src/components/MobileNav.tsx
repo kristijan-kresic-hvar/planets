@@ -1,26 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import type { Planet } from '@/types';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import type { Planet, AnimationProps } from '@/types';
 import lowercase from '@/utils/lowercase';
 import angleRightIcon from '@assets/icon-chevron.svg';
 import getPlanetColor from '@/utils/getPlanetColor';
-import gsap from 'gsap';
+import { BASE_DELAY, SCREEN_SIZES } from '@/constants';
+import { slideFromRight } from '@/animations';
+import useClientWidth from '@/hooks/useClientWidth.ts';
 
 type MobileNavProps = {
   open: boolean;
   planetItems: Planet[];
   activePlanetName: string;
   onNavItemClick: (planet: Planet) => void;
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 type MobileNavItemProps = {
-  navOpen?: boolean;
   planetName: string;
   onClick: () => void;
+  navOpen?: boolean;
   isActive?: boolean;
-  animationDuration?: number;
-  animation?: boolean;
-  animationDelay?: number;
-};
+} & AnimationProps;
 
 const MobileNavItem = ({
   planetName,
@@ -31,45 +31,39 @@ const MobileNavItem = ({
   animation = true,
   animationDelay = 0,
 }: MobileNavItemProps) => {
-  const [isAnimating, setIsAnimating] = useState(false);
-  const mobileNavItemRef = useRef<HTMLDivElement | null>(null);
+  const mobileNavItemRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
-    let customAnimation: gsap.core.Tween | null = null;
+    let animationFrame: number | null = null;
+    let gsapTimeline: gsap.core.Tween | null = null;
 
-    if (navOpen && animation && !isAnimating) {
-      customAnimation = gsap.fromTo(
-        mobileNavItemRef?.current,
-        {
-          x: 100,
-        },
-        {
+    if (navOpen && animation) {
+      animationFrame = requestAnimationFrame(() => {
+        gsapTimeline = slideFromRight({
+          element: mobileNavItemRef,
           duration: animationDuration,
-          x: 0,
-          ease: 'none',
           delay: animationDelay,
-          onComplete: () => {
-            setIsAnimating(false);
-          },
-        }
-      );
+        });
+      });
     }
 
     return () => {
-      if (customAnimation) {
-        customAnimation.kill();
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
       }
-      setIsAnimating(false);
+      if (gsapTimeline) {
+        gsapTimeline.kill();
+      }
     };
-  }, [animation, animationDelay, animationDuration, isAnimating, navOpen]);
+  }, [animation, animationDelay, animationDuration, navOpen]);
 
   return (
-    <div
+    <button
       ref={mobileNavItemRef}
       onClick={onClick}
       style={{
         backgroundColor: isActive ? 'var(--button-hover-background)' : '',
       }}
-      className="flex items-center transition-bg duration-300 cursor-pointer hover:bg-[var(--button-hover-background)] justify-between py-[1.25rem] border-b-[0.0625rem] border-[rgba(255,255,255,0.1)]"
+      className="w-full flex items-center transition-bg duration-300 cursor-pointer hover:bg-[var(--button-hover-background)] justify-between py-[1.25rem] border-b-[0.0625rem] border-[rgba(255,255,255,0.1)]"
     >
       <div className="flex items-center gap-[1.5rem]">
         <div
@@ -85,7 +79,7 @@ const MobileNavItem = ({
         src={angleRightIcon}
         alt="select planet handler"
       />
-    </div>
+    </button>
   );
 };
 
@@ -93,8 +87,17 @@ const MobileNav = ({
   open,
   planetItems,
   onNavItemClick,
+  setIsMenuOpen,
   activePlanetName,
 }: MobileNavProps) => {
+  const clientWidth = useClientWidth();
+
+  useEffect(() => {
+    if (clientWidth >= SCREEN_SIZES.tablet) {
+      setIsMenuOpen(false);
+    }
+  }, [clientWidth, setIsMenuOpen]);
+
   return (
     <div
       style={{
@@ -105,7 +108,7 @@ const MobileNav = ({
     >
       {planetItems.map((planet, index) => (
         <MobileNavItem
-          animationDelay={index * 0.09}
+          animationDelay={index * BASE_DELAY}
           navOpen={open}
           key={planet.name}
           planetName={planet.name}

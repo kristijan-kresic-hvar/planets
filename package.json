@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install",
-    "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\""
+    "prettier:check": "prettier --config .prettierrc.json --check \"src/**/*.{ts,css,html}\""
   },
   "husky": {
     "hooks": {

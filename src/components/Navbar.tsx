@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import planets from '@/data.json';
 import lowercase from '@/utils/lowercase';
 import type { Planet } from '@/types';
@@ -8,16 +8,50 @@ import MobileNav from '@/components/MobileNav';
 
 type NavbarProps = {
   activePlanet: Planet;
-  setActivePlanet: Dispatch<SetStateAction<Planet>>;
+  setActivePlanet: (planet: Planet) => void;
+};
+
+type NavbarItemProps = {
+  planet: Planet;
+  isActive: boolean;
+  handleNavItemClick: (planet: Planet) => void;
+};
+
+const NavbarItem = ({
+  planet,
+  isActive,
+  handleNavItemClick,
+}: NavbarItemProps) => {
+  const [isHighlighted, setIsHighlighted] = useState(false);
+  return (
+    <li className={`relative cursor-pointer`} key={planet.name}>
+      <button
+        className={`${
+          isActive ? 'text-white' : 'text-[rgba(255,255,255,0.75)]'
+        } hover:text-white w-full font-bold transition-color duration-300 md:pb-[2rem] lg:py-[2rem] uppercase font-spartan text-[0.6875rem] leading-[1.5625rem] tracking-[0.0625rem]`}
+        onMouseEnter={() => !isActive && setIsHighlighted(true)}
+        onMouseLeave={() => setIsHighlighted(false)}
+        onClick={() => handleNavItemClick(planet)}
+      >
+        {planet.name}
+      </button>
+
+      <div
+        style={{
+          backgroundColor: getPlanetColor(planet.name),
+          opacity: isActive || isHighlighted ? '1' : '0',
+        }}
+        className="absolute bottom-0 hidden w-full h-1 transition-opacity duration-300 md:block lg:top-0"
+      />
+    </li>
+  );
 };
 
 const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
-  const [highlightedPlanet, setHighlightedPlanet] = useState<string | null>(
-    null
-  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleNavItemClick = (planet: Planet) => {
+    if (planet.name === activePlanet.name) return;
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
@@ -51,50 +85,35 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
             {planets.map((planet) => {
               const isPlanetActive =
                 lowercase(activePlanet.name) === lowercase(planet.name);
-              const currentHighlightedPlanet =
-                lowercase(highlightedPlanet ?? '') === lowercase(planet.name);
 
               return (
-                <li
-                  onMouseEnter={() =>
-                    !isPlanetActive && setHighlightedPlanet(planet.name)
-                  }
-                  onMouseLeave={() => setHighlightedPlanet(null)}
-                  onClick={() => handleNavItemClick(planet)}
-                  className={`relative md:pb-[2rem] transition-color font-bold duration-300 lg:py-[2rem] uppercase font-spartan text-[0.6875rem] leading-[1.5625rem] tracking-[0.0625rem] cursor-pointer ${
-                    isPlanetActive
-                      ? 'text-white'
-                      : 'text-[rgba(255,255,255,0.75)]'
-                  } hover:text-white`}
+                <NavbarItem
                   key={planet.name}
-                >
-                  {planet.name}
-
-                  <div
-                    style={{
-                      backgroundColor: getPlanetColor(planet.name),
-                      opacity:
-                        isPlanetActive || currentHighlightedPlanet ? '1' : '0',
-                    }}
-                    className="absolute bottom-0 hidden w-full h-1 transition-opacity duration-300 md:block lg:top-0"
-                  />
-                </li>
+                  handleNavItemClick={handleNavItemClick}
+                  isActive={isPlanetActive}
+                  planet={planet}
+                />
               );
             })}
           </ul>
-          <img
-            title={isMenuOpen ? 'Close menu' : 'Open menu'}
-            onClick={handleHamburgerMenu}
+          <button
             className={`md:hidden cursor-pointer ${
               isMenuOpen ? 'opacity-[0.2487]' : 'opacity-1'
-            } object-contain w-[1.5rem]`}
-            src={hamburgerIcon}
-            alt="hamburger menu handler"
-          />
+            } w-[1.5rem]`}
+            onClick={handleHamburgerMenu}
+          >
+            <img
+              className="w-full object-contain"
+              title={isMenuOpen ? 'Close menu' : 'Open menu'}
+              src={hamburgerIcon}
+              alt="hamburger menu handler"
+            />
+          </button>
         </div>
       </nav>
       <MobileNav
         open={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
         planetItems={planets}
         activePlanetName={activePlanet.name}
         onNavItemClick={handleNavItemClick}
@@ -103,4 +122,4 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

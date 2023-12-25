@@ -1,12 +1,13 @@
-import { useRef, useEffect, useCallback, useState } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
+import useOnResize from '@/hooks/useOnResize.ts';
+import getOptionLabel from '@utils/getOptionLabel.ts';
 import type { PlanetOption } from '@/types';
-import { Dispatch, SetStateAction } from 'react';
 
-type MobileTabsProps = {
+type MobileOptionsProps = {
   activePlanetColor: string;
   activeOption: PlanetOption;
   options: PlanetOption[];
-  setActiveOption: Dispatch<SetStateAction<PlanetOption>>;
+  setActiveOption: (option: PlanetOption) => void;
 };
 
 const MobileOptions = ({
@@ -14,31 +15,10 @@ const MobileOptions = ({
   options,
   setActiveOption,
   activeOption,
-}: MobileTabsProps) => {
-  const [isResizing, setIsResizing] = useState(false);
-
+}: MobileOptionsProps) => {
+  const isResizing = useRef(false);
   const activeOptionRef = useRef<HTMLLIElement | null>(null);
   const indicatorRef = useRef<HTMLLIElement | null>(null);
-  const indicatorAnimationTimeoutRef = useRef<number | NodeJS.Timeout | null>(
-    null
-  );
-
-  const handleOptionClick = useCallback(
-    (option: PlanetOption) => {
-      setActiveOption(option);
-    },
-    [setActiveOption]
-  );
-
-  const getOptionLabel = (option: PlanetOption) => {
-    if (option.value === 'structure') {
-      return 'Structure';
-    } else if (option.value === 'geology') {
-      return 'Surface';
-    } else {
-      return option.label;
-    }
-  };
 
   const updateIndicatorPosition = useCallback(() => {
     if (activeOptionRef.current && indicatorRef.current) {
@@ -49,47 +29,38 @@ const MobileOptions = ({
       indicator.style.width = `${activeOptionWidth}px`;
       indicator.style.left = `${activeOptionLeft}px`;
       indicator.style.backgroundColor = activePlanetColor;
-      indicator.style.transition = isResizing ? 'none' : 'left 0.3s ease-out';
+      indicator.style.transition = isResizing.current
+        ? 'none'
+        : 'left 0.3s ease-out';
     }
-  }, [activePlanetColor, isResizing]);
+  }, [activePlanetColor]);
 
   const handleResize = useCallback(() => {
-    if (indicatorAnimationTimeoutRef.current) {
-      clearTimeout(indicatorAnimationTimeoutRef.current);
-    }
-    setIsResizing(true);
+    isResizing.current = true;
     updateIndicatorPosition();
-    indicatorAnimationTimeoutRef.current = setTimeout(() => {
-      setIsResizing(false);
-    }, 300);
+    isResizing.current = false;
   }, [updateIndicatorPosition]);
 
   useEffect(() => {
     updateIndicatorPosition();
-  }, [activeOption, updateIndicatorPosition]);
+  }, [activeOption, activePlanetColor, isResizing, updateIndicatorPosition]);
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleResize]);
+  useOnResize(handleResize);
 
   return (
-    <ul className="relative w-full flex justify-between gap-[2.75rem] overflow-x-hidden">
+    <ul className="relative w-full flex justify-between gap-[2.75rem] overflow-x-auto no-scrollbar">
       {options.map((option) => {
         const isOptionActive = activeOption.value === option.value;
         return (
-          <li
-            ref={isOptionActive ? activeOptionRef : null}
-            className={`transition-color py-5 font-bold duration-300 uppercase font-spartan text-[0.56rem] leading-normal tracking-[0.12rem] cursor-pointer ${
-              isOptionActive ? 'text-white' : 'text-[rgba(255,255,255,0.5)]'
-            } hover:text-white`}
-            onClick={() => handleOptionClick(option)}
-            key={option.value}
-          >
-            {getOptionLabel(option)}
+          <li key={option.value} ref={isOptionActive ? activeOptionRef : null}>
+            <button
+              className={`transition-color py-5 font-bold duration-300 uppercase font-spartan text-[0.56rem] leading-normal tracking-[0.12rem] cursor-pointer ${
+                isOptionActive ? 'text-white' : 'text-[rgba(255,255,255,0.5)]'
+              } hover:text-white`}
+              onClick={() => setActiveOption(option)}
+            >
+              {getOptionLabel(option)}
+            </button>
           </li>
         );
       })}
