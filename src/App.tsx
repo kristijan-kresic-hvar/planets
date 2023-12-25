@@ -70,12 +70,10 @@ const App = () => {
           />
           <div className="mt-[1.75rem] md:mt-[1.69rem] lg:mt-[5.44rem] pb-[2.94rem] md:pb-[2.25rem] lg:pb-[3.5rem]">
             <PlanetInformation
-              data={{
-                rotation,
-                revolution,
-                radius,
-                temperature,
-              }}
+              rotation={rotation}
+              revolution={revolution}
+              radius={radius}
+              temperature={temperature}
             />
           </div>
         </div>

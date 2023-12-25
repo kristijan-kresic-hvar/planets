@@ -1,13 +1,13 @@
-import type {
-  AnimationProps,
-  PlanetInformation as PlanetInformationType,
-} from '@/types';
+import type { AnimationProps } from '@/types';
 import { fadeInUp } from '@/animations';
 import { BASE_DELAY, PLANET_INFORMATION_TITLES } from '@/constants';
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef, memo } from 'react';
 
 type PlanetInformationProps = {
-  data: PlanetInformationType;
+  rotation: string;
+  revolution: string;
+  radius: string;
+  temperature: string;
 };
 
 type InformationBoxProps = {
@@ -56,7 +56,10 @@ const InformationBox = ({
 };
 
 const PlanetInformation = ({
-  data: { rotation, revolution, radius, temperature },
+  rotation,
+  revolution,
+  radius,
+  temperature,
 }: PlanetInformationProps) => {
   const infoData = useMemo(
     () => [
@@ -95,4 +98,4 @@ const PlanetInformation = ({
   );
 };
 
-export default PlanetInformation;
+export default memo(PlanetInformation);
