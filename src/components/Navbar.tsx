@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import planets from '@/data.json';
 import lowercase from '@/utils/lowercase';
 import type { Planet } from '@/types';
@@ -122,4 +122,4 @@ const Navbar = ({ activePlanet, setActivePlanet }: NavbarProps) => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);
