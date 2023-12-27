@@ -21,6 +21,7 @@ export const fadeIn = ({
   ease = 'power1.inOut',
 }: GSAPAnimationProps) => {
   if (show && element.current) {
+    gsap.killTweensOf(element.current);
     return gsap.fromTo(
       element.current,
       { opacity: 0 },
@@ -43,6 +44,7 @@ export const fadeInUp = ({
   ease = 'power1.inOut',
 }: GSAPAnimationProps) => {
   if (show && element.current) {
+    gsap.killTweensOf(element.current);
     return gsap.fromTo(
       element.current,
       { opacity: 0, y: 20 },
@@ -67,6 +69,7 @@ export const slideFromRight = ({
   ease = 'ease',
 }: SlideFromRightProps) => {
   if (show && element.current) {
+    gsap.killTweensOf(element.current);
     return gsap.fromTo(
       element.current,
       {

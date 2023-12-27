@@ -33,26 +33,16 @@ const MobileNavItem = ({
 }: MobileNavItemProps) => {
   const mobileNavItemRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
-    let animationFrame: number | null = null;
-    let gsapTimeline: gsap.core.Tween | null = null;
-
-    if (navOpen && animation) {
-      animationFrame = requestAnimationFrame(() => {
-        gsapTimeline = slideFromRight({
-          element: mobileNavItemRef,
-          duration: animationDuration,
-          delay: animationDelay,
-        });
+    if (!navOpen || !animation) return;
+    const animationFrame = requestAnimationFrame(() => {
+      slideFromRight({
+        element: mobileNavItemRef,
+        duration: animationDuration,
+        delay: animationDelay,
       });
-    }
-
+    });
     return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-      if (gsapTimeline) {
-        gsapTimeline.kill();
-      }
+      if (animationFrame) cancelAnimationFrame(animationFrame);
     };
   }, [animation, animationDelay, animationDuration, navOpen]);
 
