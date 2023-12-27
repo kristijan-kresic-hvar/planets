@@ -1,7 +1,7 @@
 import type { AnimationProps } from '@/types';
 import { fadeInUp } from '@/animations';
 import { BASE_DELAY, PLANET_INFORMATION_TITLES } from '@/constants';
-import { useLayoutEffect, useMemo, useRef, memo } from 'react';
+import { useEffect, useMemo, useRef, memo } from 'react';
 
 type PlanetInformationProps = {
   rotation: string;
@@ -24,7 +24,7 @@ const InformationBox = ({
 }: InformationBoxProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!animation) return;
     const animationFrame = requestAnimationFrame(() => {
       fadeInUp({
