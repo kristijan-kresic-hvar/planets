@@ -85,3 +85,29 @@ export const slideFromRight = ({
   }
   return null;
 };
+
+export const rotateInfinite = ({
+  element,
+  show = true,
+  duration = 1,
+  delay = 0,
+  ease = 'linear',
+}: GSAPAnimationProps) => {
+  if (show && element.current) {
+    gsap.killTweensOf(element.current);
+    return gsap.fromTo(
+      element.current,
+      {
+        rotation: 0,
+      },
+      {
+        duration: duration,
+        rotation: 360,
+        ease: ease,
+        delay: delay,
+        repeat: -1,
+      }
+    );
+  }
+  return null;
+};
